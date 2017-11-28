@@ -1,5 +1,6 @@
+import { H1, Text } from 'native-base';
 import React from 'react';
-import { SectionList, Text, View } from 'react-native';
+import { SectionList, TouchableOpacity, View } from 'react-native';
 import { componentFromStream } from 'recompose';
 
 import { decks$ } from '../streams';
@@ -10,7 +11,25 @@ export default componentFromStream(props$ => {
       <SectionList
         sections={decks}
         renderItem={({ item }) => <Text>{item.title}</Text>}
-        renderSectionHeader={({ section }) => <Text>{section.title}</Text>}
+        renderSectionHeader={({ section }) => (
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderBottomWidth: 1,
+              borderColor: 'black',
+              padding: 20
+            }}>
+            <H1>{section.title}</H1>
+
+            <Text style={{ fontSize: 15, color: 'gray' }}>
+              {section.data.length} card{section.data.length === 0 ||
+              section.data.length > 1
+                ? 's'
+                : ''}
+            </Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   ));
