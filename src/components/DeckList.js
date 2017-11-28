@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SectionList, Text, View } from 'react-native';
+import { SectionList, Text, View } from 'react-native';
 import { componentFromStream } from 'recompose';
 
 import { decks$ } from '../streams';

@@ -1,22 +1,25 @@
 import './src/side-effects';
 
+import { Container, Content } from 'native-base';
 import React from 'react';
-import { View } from 'react-native';
 
 import DeckList from './src/components/DeckList';
 
 export default class App extends React.Component {
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')
+    });
+  }
+
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-        <DeckList />
-      </View>
+      <Container>
+        <Content>
+          <DeckList />
+        </Content>
+      </Container>
     );
   }
 }
