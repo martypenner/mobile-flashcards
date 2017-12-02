@@ -38,7 +38,7 @@ const DeckDetail = componentFromStream(props$ =>
             <Button
               style={{ backgroundColor: 'black' }}
               onPress={() =>
-                navigation.navigate('StartQuiz', { deckId: deck.key })
+                navigation.navigate('Quiz', { deckId: deck.key })
               }>
               <Text style={{ fontSize: 20, color: 'white' }}>Start Quiz</Text>
             </Button>
