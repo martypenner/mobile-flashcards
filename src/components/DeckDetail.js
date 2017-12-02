@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { componentFromStream } from 'recompose';
 
 import { decks$ } from '../streams';
+import NumCards from './NumCards';
 
 const DeckDetail = componentFromStream(props$ =>
   props$.switchMap(props =>
@@ -13,8 +14,10 @@ const DeckDetail = componentFromStream(props$ =>
       )
       .tag('deck detail')
       .map(deck => (
-        <View>
+        <View style={{ flex: 1, alignItems: 'center', marginTop: 20 }}>
           <H1>{deck.title}</H1>
+
+          <NumCards cards={deck.data} />
         </View>
       ))
   )
