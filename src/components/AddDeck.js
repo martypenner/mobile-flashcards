@@ -30,7 +30,7 @@ const AddDeck = componentFromStream(props$ => {
                     NavigationActions.navigate({ routeName: 'Decks' }),
                     NavigationActions.navigate({
                       routeName: 'DeckDetail',
-                      params: { id: deck.id }
+                      params: { deckId: deck.id }
                     })
                   ]
                 })

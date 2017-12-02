@@ -11,7 +11,7 @@ import NumCards from './NumCards';
 const DeckDetail = componentFromStream(props$ =>
   props$.switchMap(({ navigation, ...props }) =>
     decks$
-      .map(decks => decks[navigation.state.params.id])
+      .map(decks => decks[navigation.state.params.deckId])
       .tag('deck detail')
       .map(deck => (
         <View

@@ -23,7 +23,7 @@ export default componentFromStream(props$ =>
             }}
             onPress={() =>
               navigation.navigate('DeckDetail', {
-                id: section.key,
+                deckId: section.key,
                 title: section.title
               })
             }>
