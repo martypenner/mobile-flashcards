@@ -3,24 +3,40 @@ import { Text, TextInput, View } from 'react-native';
 import { componentFromStream, createEventHandler } from 'recompose';
 import { Observable } from 'rxjs/Rx';
 
-import { decks$ } from '../streams';
+import { decks$, saveCard } from '../streams';
 import Button from './Button';
 
 const AddCard = componentFromStream(props$ => {
   const { handler: changeQuestion, stream: question$ } = createEventHandler();
   const { handler: changeAnswer, stream: answer$ } = createEventHandler();
+  const { handler: submit, stream: submit$ } = createEventHandler();
 
   return Observable.combineLatest(
     question$.startWith(''),
     answer$.startWith(''),
     props$.switchMap(props =>
-      decks$
-        .map(decks =>
-          decks.find(deck => props.navigation.state.params.deckId === deck.key)
-        )
-        .tag('add card')
+      decks$.map(decks => decks[props.navigation.state.params.deckId])
     ),
-    (question, answer, props) => {
+    props$
+      .mergeMap(props =>
+        submit$
+          .withLatestFrom(
+            decks$.map(decks => decks[props.navigation.state.params.deckId]),
+            question$,
+            answer$,
+            (_, deck, question, answer) => ({
+              deck,
+              question,
+              answer
+            })
+          )
+          .mergeMap(({ deck, question, answer }) =>
+            saveCard({ deckId: deck.key, question, answer })
+          )
+          .do(() => props.navigation.goBack())
+      )
+      .startWith(null),
+    (question, answer) => {
       const canSubmit = question.length && answer.length;
 
       return (
@@ -61,14 +77,9 @@ const AddCard = componentFromStream(props$ => {
             />
           </View>
 
-          <Button onPress={() => {}} disabled={!canSubmit}>
+          <Button onPress={submit} disabled={!canSubmit}>
             <Text
-              style={[
-                { fontSize: 20 },
-                canSubmit
-                  ? {}
-                  : { backgroundColor: 'light-gray', color: 'gray' }
-              ]}>
+              style={[{ fontSize: 20 }, canSubmit ? {} : { color: 'gray' }]}>
               Submit
             </Text>
           </Button>

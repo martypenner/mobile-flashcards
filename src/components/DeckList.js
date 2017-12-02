@@ -7,10 +7,10 @@ import { decks$ } from '../streams';
 import NumCards from './NumCards';
 
 export default componentFromStream(props$ =>
-  props$.combineLatest(decks$.startWith(null), ({ navigation }, decks) => (
+  props$.combineLatest(decks$, ({ navigation }, decks) => (
     <View style={{ marginTop: 50 }}>
       <SectionList
-        sections={decks}
+        sections={Object.values(decks)}
         renderItem={({ item }) => <Text>{item.title}</Text>}
         renderSectionHeader={({ section }) => (
           <TouchableOpacity
