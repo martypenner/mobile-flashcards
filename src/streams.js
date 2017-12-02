@@ -6,4 +6,4 @@ export const decks$ = Observable.of([
     title: 'hi',
     data: [{ key: 'hi', question: 'abc', answer: 'def' }]
   }
-]);
+]).tag('decks');
