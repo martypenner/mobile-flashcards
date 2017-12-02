@@ -16,6 +16,20 @@ export const decks$ = getDecks()
   .mergeMap(decks => _decks$.startWith(decks))
   .tag('decks');
 
+export const saveDeck = ({ id, title }) =>
+  decks$
+    .map(decks => ({
+      ...decks,
+      [id]: {
+        key: id,
+        title,
+        data: []
+      }
+    }))
+    .take(1)
+    .do(decks => updateDecks(decks))
+    .tag('save deck');
+
 export const saveCard = ({ deckId, question, answer }) =>
   decks$
     .map(decks => ({
@@ -26,8 +40,7 @@ export const saveCard = ({ deckId, question, answer }) =>
       }
     }))
     .take(1)
-    .mergeMap(decks => Observable.zip(Observable.of(decks)))
-    .do(([decks]) => updateDecks(decks))
+    .do(decks => updateDecks(decks))
     .tag('save card');
 
 // Write to disk whenever decks are updated

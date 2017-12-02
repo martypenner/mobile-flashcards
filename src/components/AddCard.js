@@ -7,8 +7,8 @@ import { decks$, saveCard } from '../streams';
 import Button from './Button';
 
 const AddCard = componentFromStream(props$ => {
-  const { handler: changeQuestion, stream: question$ } = createEventHandler();
-  const { handler: changeAnswer, stream: answer$ } = createEventHandler();
+  const { handler: updateQuestion, stream: question$ } = createEventHandler();
+  const { handler: updateAnswer, stream: answer$ } = createEventHandler();
   const { handler: submit, stream: submit$ } = createEventHandler();
 
   return Observable.combineLatest(
@@ -57,7 +57,7 @@ const AddCard = componentFromStream(props$ => {
                 padding: 10
               }}
               placeholder="Question"
-              onChangeText={text => changeQuestion(text)}
+              onChangeText={text => updateQuestion(text)}
               value={question}
             />
           </View>
@@ -72,7 +72,7 @@ const AddCard = componentFromStream(props$ => {
                 padding: 10
               }}
               placeholder="Answer"
-              onChangeText={text => changeAnswer(text)}
+              onChangeText={text => updateAnswer(text)}
               value={answer}
             />
           </View>

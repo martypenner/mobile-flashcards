@@ -5,6 +5,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import AddCard from './src/components/AddCard';
 import StartQuiz from './src/components/AddCard';
+import AddDeck from './src/components/AddDeck';
 import DeckDetail from './src/components/DeckDetail';
 import DeckList from './src/components/DeckList';
 
@@ -17,7 +18,7 @@ const Decks = TabNavigator({
     }
   },
   AddDeck: {
-    screen: AddCard,
+    screen: AddDeck,
     navigationOptions: {
       tabBarLabel: '+ Add Deck',
       headerTitle: 'Add Deck'
