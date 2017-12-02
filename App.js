@@ -1,11 +1,24 @@
 import './src/side-effects';
 
-import { Container, Content } from 'native-base';
 import React from 'react';
+import { StackNavigator } from 'react-navigation';
 
+import DeckDetail from './src/components/DeckDetail';
 import DeckList from './src/components/DeckList';
 
-export default class App extends React.Component {
+const RootNavigator = StackNavigator({
+  DeckList: {
+    screen: DeckList,
+    navigationOptions: {
+      header: null
+    }
+  },
+  DeckDetail: {
+    screen: DeckDetail
+  }
+});
+
+class App extends React.Component {
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
@@ -14,12 +27,8 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <Container>
-        <Content>
-          <DeckList />
-        </Content>
-      </Container>
-    );
+    return <RootNavigator />;
   }
 }
+
+export default App;
