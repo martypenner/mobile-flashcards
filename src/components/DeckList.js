@@ -22,7 +22,12 @@ export default componentFromStream(props$ => {
                 borderColor: 'black',
                 padding: 20
               }}
-              onPress={() => navigation.navigate('DeckDetail')}>
+              onPress={() =>
+                navigation.navigate('DeckDetail', {
+                  id: section.key,
+                  title: section.title
+                })
+              }>
               <H1>{section.title}</H1>
 
               <Text style={{ fontSize: 15, color: 'gray' }}>

@@ -1,11 +1,16 @@
 import { H1, Text } from 'native-base';
 import React from 'react';
 import { SectionList, TouchableOpacity, View } from 'react-native';
-import { componentFromStream } from 'recompose';
+import {
+  componentFromStream,
+  compose,
+  setStatic,
+  hoistStatics
+} from 'recompose';
 
 import { decks$ } from '../streams';
 
-export default componentFromStream(props$ => {
+const DeckDetail = componentFromStream(props$ => {
   return props$.combineLatest(decks$.startWith(null), (_, decks) => (
     <View style={{ marginTop: 50 }}>
       <SectionList
@@ -34,3 +39,13 @@ export default componentFromStream(props$ => {
     </View>
   ));
 });
+
+DeckDetail.navigationOptions = ({ navigation }) => ({
+  headerTitle: navigation.state.params.title
+});
+
+// export default compose(
+//   setStatic('navigationOptions', (props) => console.info(props) || { headerTitle: 'alskdfjsdlkfj' })
+// )(DeckDetail);
+
+export default DeckDetail;
