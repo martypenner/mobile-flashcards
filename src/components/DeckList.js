@@ -11,7 +11,7 @@ export default componentFromStream(props$ =>
     <View style={{ marginTop: 50 }}>
       <SectionList
         sections={Object.values(decks)}
-        renderItem={({ item }) => <Text>{item.title}</Text>}
+        renderItem={() => null}
         renderSectionHeader={({ section }) => (
           <TouchableOpacity
             style={{
