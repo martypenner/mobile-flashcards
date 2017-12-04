@@ -35,11 +35,17 @@ const DeckDetail = componentFromStream(props$ =>
               <Text style={{ fontSize: 20 }}>Add Card</Text>
             </Button>
 
-            <Button
-              style={{ backgroundColor: 'black' }}
-              onPress={() => navigation.navigate('Quiz', { deckId: deck.key })}>
-              <Text style={{ fontSize: 20, color: 'white' }}>Start Quiz</Text>
-            </Button>
+            {deck.data.length > 0 ? (
+              <Button
+                style={{ backgroundColor: 'black' }}
+                onPress={() =>
+                  navigation.navigate('Quiz', { deckId: deck.key })
+                }>
+                <Text style={{ fontSize: 20, color: 'white' }}>Start Quiz</Text>
+              </Button>
+            ) : (
+              <Text>Add some cards to start quizzing yourself!</Text>
+            )}
           </View>
         </View>
       ))
