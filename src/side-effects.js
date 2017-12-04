@@ -1,3 +1,4 @@
+import 'es6-symbol/implement';
 import 'rxjs-spy/add/operator/tag';
 
 import { setObservableConfig } from 'recompose';
