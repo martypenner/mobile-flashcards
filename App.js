@@ -9,6 +9,7 @@ import AddDeck from './src/components/AddDeck';
 import DeckDetail from './src/components/DeckDetail';
 import DeckList from './src/components/DeckList';
 import Quiz from './src/components/Quiz';
+import { setLocalNotification } from './src/helpers';
 
 const Decks = TabNavigator({
   DeckList: {
@@ -65,4 +66,14 @@ const RootNavigator = StackNavigator({
   }
 });
 
-export default RootNavigator;
+class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return <RootNavigator />;
+  }
+}
+
+export default App;

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { componentFromStream, createEventHandler } from 'recompose';
 import { Observable } from 'rxjs/Rx';
 
+import { clearLocalNotification, setLocalNotification } from '../helpers';
 import { decks$ } from '../streams';
 import Button from './Button';
 
@@ -55,6 +56,11 @@ const Quiz = componentFromStream(props$ => {
     )
     .startWith(false);
 
+  const updateLocalNotification$ = quizCompleted$
+    .filter(completed => completed)
+    .mergeMap(() => clearLocalNotification().then(setLocalNotification))
+    .startWith(null);
+
   const correctAnswers$ = answers$.map(
     answers => Object.values(answers).filter(answer => answer).length
   );
@@ -73,6 +79,7 @@ const Quiz = componentFromStream(props$ => {
       .do(() => updateQuestionNumber(0))
       .do(() => showQuestion(true))
       .startWith(null),
+    updateLocalNotification$,
 
     (
       props,
