@@ -1,11 +1,10 @@
-import { H1 } from 'native-base';
-import { Text } from 'native-base';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { componentFromStream } from 'recompose';
 
 import { decks$ } from '../streams';
 import Button from './Button';
+import H1 from './H1';
 import NumCards from './NumCards';
 
 const DeckDetail = componentFromStream(props$ =>
@@ -35,11 +34,10 @@ const DeckDetail = componentFromStream(props$ =>
               }>
               <Text style={{ fontSize: 20 }}>Add Card</Text>
             </Button>
+
             <Button
               style={{ backgroundColor: 'black' }}
-              onPress={() =>
-                navigation.navigate('Quiz', { deckId: deck.key })
-              }>
+              onPress={() => navigation.navigate('Quiz', { deckId: deck.key })}>
               <Text style={{ fontSize: 20, color: 'white' }}>Start Quiz</Text>
             </Button>
           </View>

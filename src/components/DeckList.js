@@ -1,9 +1,9 @@
-import { H1, Text } from 'native-base';
 import React from 'react';
-import { SectionList, TouchableOpacity, View } from 'react-native';
+import { SectionList, Text, TouchableOpacity, View } from 'react-native';
 import { componentFromStream } from 'recompose';
 
 import { decks$ } from '../streams';
+import H1 from './H1';
 import NumCards from './NumCards';
 
 export default componentFromStream(props$ =>
