@@ -1,5 +1,6 @@
 import './src/side-effects';
 
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
@@ -13,15 +14,29 @@ const Decks = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
+      header: null,
       tabBarLabel: 'Decks',
-      header: null
+      tabBarIcon: ({ tintColor, focused }) => (
+        <MaterialCommunityIcons
+          name={focused ? 'cards' : 'cards-outline'}
+          size={26}
+          style={{ color: tintColor }}
+        />
+      )
     }
   },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
+      headerTitle: 'Add Deck',
       tabBarLabel: '+ Add Deck',
-      headerTitle: 'Add Deck'
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Entypo
+          name={focused ? 'add-to-list' : 'add-to-list'}
+          size={26}
+          style={{ color: tintColor }}
+        />
+      )
     }
   }
 });
